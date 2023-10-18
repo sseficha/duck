@@ -1,12 +1,17 @@
 package com.solonsef.duck.rest;
 
+import com.solonsef.duck.dto.CountDTO;
+import com.solonsef.duck.dto.ImageDTO;
 import com.solonsef.duck.entities.Image;
 import com.solonsef.duck.entities.User;
 import com.solonsef.duck.exceptions.StorageException;
 import com.solonsef.duck.services.ImageService;
 import com.solonsef.duck.services.StorageService;
 import com.solonsef.duck.services.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Min;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +21,7 @@ import java.security.Principal;
 
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
+@Tag(name = "Images")
 @Validated
 @RestController
 @RequestMapping("/images")
@@ -32,7 +38,9 @@ public class ImageController {
         this.userService = userService;
     }
 
+    @SecurityRequirement(name = "basic")
     @PostMapping(consumes = MULTIPART_FORM_DATA_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public void saveImage(@RequestParam("file") MultipartFile file, Principal principal) {
         User user = userService.findByUserName(principal.getName()).get();
         Image image = new Image("duck" + imageService.getLastId());
@@ -45,17 +53,28 @@ public class ImageController {
         }
     }
 
-    @GetMapping(value = "/{id}")
-    public URL getImage(@PathVariable @Min(1) int id) {
+    @GetMapping(value = "/{id}", produces = {"application/json"})
+    public ImageDTO getImage(@PathVariable @Min(1) int id) {
         Image image = imageService.findById(id);
-        return getImageFromStorage(image);
+        ImageDTO imageDTO = new ImageDTO();
+        imageDTO.setUrl(getImageFromStorage(image).toString());
+        return imageDTO;
 
     }
 
-    @GetMapping(value = "/random")
-    public URL getRandomImage() {
+    @GetMapping(value = "/random", produces = {"application/json"})
+    public ImageDTO getRandomImage() {
         Image image = imageService.findRandom();
-        return getImageFromStorage(image);
+        ImageDTO imageDTO = new ImageDTO();
+        imageDTO.setUrl(getImageFromStorage(image).toString());
+        return imageDTO;
+    }
+
+    @GetMapping(value = "/queue", produces = {"application/json"})
+    public CountDTO getQueueCount() {
+        CountDTO countDTO = new CountDTO();
+        countDTO.setCount(imageService.getQueueCount());
+        return countDTO;
     }
 
     public URL getImageFromStorage(Image image) {

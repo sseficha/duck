@@ -3,6 +3,7 @@ package com.solonsef.duck.dao;
 import com.solonsef.duck.entities.FunFact;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
@@ -40,5 +41,13 @@ public class FunFactDAOImpl implements FunFactDAO {
                         "LIMIT 1", FunFact.class
         );
         return query.getSingleResult();
+    }
+
+    @Override
+    public int getQueueCount() {
+        Query query = entityManager.createQuery(
+                "SELECT COUNT(id) FROM FunFact WHERE enabled = false"
+        );
+        return ((Number) query.getSingleResult()).intValue();
     }
 }

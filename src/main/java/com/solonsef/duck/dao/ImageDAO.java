@@ -11,5 +11,7 @@ public interface ImageDAO {
 
     int getLastId();
 
+    int getQueueCount();
+
     void save(Image image);
 }

@@ -7,11 +7,15 @@ import java.util.Optional;
 
 public interface FunFactDAO {
 
-    public void save(FunFact funFact);
+    void save(FunFact funFact);
 
-    public List<FunFact> findAll();
+    List<FunFact> findAll();
 
-    public Optional<FunFact> findById(int id);
+    Optional<FunFact> findById(int id);
 
     FunFact findRandom();
+
+
+    int getQueueCount();
+
 }

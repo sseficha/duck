@@ -9,5 +9,7 @@ public interface ImageService {
 
     Image findById(int id);
 
+    int getQueueCount();
+
     int getLastId();
 }

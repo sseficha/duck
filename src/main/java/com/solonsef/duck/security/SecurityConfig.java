@@ -55,23 +55,6 @@ public class SecurityConfig {
         http.headers(headers -> headers
                 .frameOptions(frameOptions -> frameOptions.sameOrigin()));
 
-
-//        http.authorizeHttpRequests(configurer ->
-//                        configurer.requestMatchers(HttpMethod.POST, "/fun-facts").authenticated()
-////                                .anyRequest().authenticated()
-//        );
-//                .formLogin(form ->
-//                        form
-//                                .loginPage("/showMyLoginPage")
-//                                .loginProcessingUrl("/authenticateTheUser")
-//                                .permitAll()
-//                )
-//                .logout(logout -> logout.permitAll()
-//                )
-//                .exceptionHandling(configurer ->
-//                        configurer.accessDeniedPage("/access-denied")
-//                );
-
         // use HTTP Basic authentication
         http.httpBasic(Customizer.withDefaults());
 

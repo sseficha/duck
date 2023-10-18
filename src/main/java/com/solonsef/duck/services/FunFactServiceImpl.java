@@ -42,4 +42,9 @@ public class FunFactServiceImpl implements FunFactService {
     public List<FunFact> findAll() {
         return funFactDAO.findAll();
     }
+
+    @Override
+    public int getQueueCount() {
+        return funFactDAO.getQueueCount();
+    }
 }

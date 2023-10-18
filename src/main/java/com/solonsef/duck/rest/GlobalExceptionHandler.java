@@ -15,14 +15,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<GlobalErrorResponse> handleEntityNotFoundException(EntityNotFoundException exc) {
-        exc.printStackTrace();
         GlobalErrorResponse response = new GlobalErrorResponse(HttpStatus.NOT_FOUND.value(), exc.getMessage(), LocalDateTime.now());
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
     public ResponseEntity<GlobalErrorResponse> handleConstraintViolationException(ConstraintViolationException exc) {
-        exc.printStackTrace();
         GlobalErrorResponse response = new GlobalErrorResponse(HttpStatus.BAD_REQUEST.value(), exc.getMessage(), LocalDateTime.now());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }

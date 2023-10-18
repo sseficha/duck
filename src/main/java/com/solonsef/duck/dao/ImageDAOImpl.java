@@ -33,6 +33,13 @@ public class ImageDAOImpl implements ImageDAO {
 
     }
 
+    @Override
+    public int getQueueCount() {
+        Query query = entityManager.createQuery(
+                "SELECT COUNT(id) FROM Image WHERE enabled = false"
+        );
+        return ((Number) query.getSingleResult()).intValue();
+    }
 
     @Override
     public void save(Image image) {

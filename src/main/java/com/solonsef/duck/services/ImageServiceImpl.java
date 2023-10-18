@@ -36,6 +36,11 @@ public class ImageServiceImpl implements ImageService {
         return image.get();
     }
 
+    @Override
+    public int getQueueCount() {
+        return imageDAO.getQueueCount();
+    }
+
     public int getLastId() {
         return imageDAO.getLastId();
     }

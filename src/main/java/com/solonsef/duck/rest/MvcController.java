@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.net.URL;
-
 
 @Controller
 public class MvcController {
@@ -33,8 +31,8 @@ public class MvcController {
     }
 
     @GetMapping("/")
-    public String getHome(Model model) {
-        URL imageUrl = imageController.getRandomImage();
+    public String showHome(Model model) {
+        String imageUrl = imageController.getRandomImage().getUrl();
         model.addAttribute("imageUrl", imageUrl);
         return "home";
     }
@@ -42,7 +40,11 @@ public class MvcController {
     @GetMapping("/swagger")
     public String getSwagger() {
         return "swagger";
-//        return "redirect:swagger-ui/index.html";
+    }
+
+    @GetMapping("/contact")
+    public String showContanct() {
+        return "contact";
     }
 
     @GetMapping("/show-signup")

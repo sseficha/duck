@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container d-flex flex-column align-items-center justify-content-center text-center"
+     style="height: 100vh;">
+
+    <div th:replace="components/header :: header"></div>
+    <!--<div class="container-fluid">-->
+    <div>
+        Contact me: <br>
+        <a href="mailto:<nowiki>solonsef@gmail.com">solonsef@gmail.com</a>
+    </div>
+    <br>
+    <div>
+        Contribute on <a href="https://github.com/sseficha/duck">GitHub</a>
+    </div>
+
+
+    <!--    <div>This is a link to swagger: <a th:href="@{/swagger}">Link to swagger</a></div>-->
+</div>
+
+</body>
+</html>

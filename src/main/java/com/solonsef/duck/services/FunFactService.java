@@ -20,5 +20,7 @@ public interface FunFactService {
 
     List<FunFact> findAll();
 
+    int getQueueCount();
+
 
 }
